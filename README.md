@@ -28,14 +28,14 @@ This video https://youtu.be/dawEcPuuV1s contains a brief description of the proj
 
 ![dashboard](https://raw.githubusercontent.com/hugobaraujo88/brfederalbudget/main/img/printDashboard.png)
 
-Download of the dashboard featuring imported and updated data up to September 2023 (PBIX file for opening in Power BI): [Orçamento Do Governo Federal - Panorama](https://github.com/hugobaraujo88/brfederalbudget/raw/main/Dashboard%20Power%20BI/FederalGovernmentBudgetOverview.pbix).
+Download of the dashboard featuring imported and updated data up to September 2023 (PBIX file for opening in Power BI): [Federal Government Budget - Overview](https://github.com/hugobaraujo88/brfederalbudget/raw/main/Dashboard%20Power%20BI/FederalGovernmentBudgetOverview.pbix).
 
 
 ## Project requirements
 
 **-** Python + libs (`requests`, `pandas`, `textwrap`, `textwrap`, `pyodbc`, `sqlalchemy`, `zipfile`, `os`, `urllib.parse`) 
 
-**-** .ipynb file reader, such as jupyter (Data Exploratory Analysis [analise_exploratoria.ipynb](https://github.com/hugobaraujo88/brfederalbudget/blob/main/analise_exploratoria.ipynb))
+**-** .ipynb file reader, such as jupyter (Data Exploratory Analysis [exploratory_analysis.ipynb](https://github.com/hugobaraujo88/brfederalbudget/blob/main/exploratory_analysis.ipynb))
 
 **-** Azure Subscription
 
