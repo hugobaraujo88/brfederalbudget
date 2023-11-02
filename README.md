@@ -1,61 +1,61 @@
-# Projeto: Orçamento do Governo Federal | Panorama
+# Project: Federal GOvernment Budget | Overview
 
-Este projeto tem como objetivo extrair e analisar dados do orçamento federal, apresentando-os em um formato acessível e informativo por meio de um dashboard interativo. **O objetivo é permitir uma análise rápida e integrada, facilitando o entendimento de como os recursos do governo federal são arrecadados e alocados.**
+This project aims to extract and analyze data from the federal budget, presenting it in an accessible and informative format through an interactive dashboard. **The goal is to enable quick and integrated analysis, making it easier to understand how the federal government's resources are collected and allocated.**
 
-Este vídeo https://youtu.be/dawEcPuuV1s, contém uma descrição resumida do projeto e da arquitetura, **além da gravação, em tempo real, dos pipelines do projeto em execução**.
+This video https://youtu.be/dawEcPuuV1s contains a brief description of the project and its architecture, **along with the real-time recording of the running project pipelines.** 
 
-## Arquitetura do projeto (visão geral)
+## Project Architecture (high level)
 
 ![Arquitetura visão geral](https://raw.githubusercontent.com/hugobaraujo88/orcamentogovfed/main/img/transparencia_data_arch.png)
 
-**1)** Dados são extraidos do Portal da Transparência da CGU (Controladoria Geral da União): Despesas Executadas, Orçamento das Despesas (seria o planejado), Receitas Previstas e Arrecadadas.
+**1)** Data is extracted from the Transparency Portal of the CGU (Brazilian Comptroller General's Office): Executed Expenses, Budgeted Expenses (the planned budget), Expected and Collected Revenue
 
-**2)** Dados são extraídos do site do IBGE: PIB trimestral.
+**2)** Data is extracted from the IBGE (Brazilian Institute of Geography and Statistics) website: Quarterly GDP.
 
-**3)** Dados extraídos são armazenados em Data Lake do Azure.
+**3)** Extracted data is stored in Azure Data Lake.
 
-**4)** Os dados brutos extraídos do Portal da Transparência são transformados utilizado o PySpark no ambiente do Data Bricks: modificação do nome das colunas, remoção de colunas desnecessárias, criando colunas numéricas (float, e int) e alguns "splits" nos dados brutos.
+**4)** The raw data extracted from the Transparency Portal are transformed using PySpark in the Databricks environment. This transformation includes renaming columns, removing unnecessary columns, creating numeric columns (float and int), and performing some data splits on the raw data.
 
-**5)** Dados brutos extraídos do IBGE são transformados utilizando o Data Flow (que também usa um cluster Spark): basicamente converte o PIB trimestral em anual.
+**5)** The raw data extracted from the IBGE is transformed using Data Flow (which also uses a Spark cluster). The transformation primarily involves converting the quarterly GDP into an annual format.
 
-**6)** Dados processados são carregados em um banco de dados Azure SQL. (o schema e a estrutura das tabelas foram criados por meio deste código: [create_SQL_schema.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/create_SQL_schema.py) )
+**6)** Processed data is loaded into an Azure SQL database. (The schema and table structures were created using the following code: [create_SQL_schema.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/create_SQL_schema.py) )
 
-**7)** Dados históricos, de 2014 a 2023, são extraídos, processados e enviados ao Azure SQL por meio de um código em python (ver [download_orcamento_federal.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/download_orcamento_federal.py) e [send_historical_to_sql.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/send_historical_to_sql.py))
+**7)** Historical data from 2014 to 2023 is extracted, processed, and sent to Azure SQL using a Python script. (kindly review this file [download_orcamento_federal.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/download_orcamento_federal.py) and this [send_historical_to_sql.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/send_historical_to_sql.py))
 
-**8)** Por fim, após a realização das queries contidas na pasta [SQL Scripts](https://github.com/hugobaraujo88/orcamentogovfed/tree/main/SQL%20Scripts), queries estas que são executadas automaticamente cada vez que o pipeline de carregamento é acionado, o dashboard é criado no Power BI via direct query.
+**8)** Finally, after running the queries located in the [SQL Scripts](https://github.com/hugobaraujo88/orcamentogovfed/tree/main/SQL%20Scripts) folder, which are automatically executed each time the loading pipeline is triggered, he dashboard is created in Power BI via direct query.
 
 ## Dashboard
 
 ![dashboard](https://raw.githubusercontent.com/hugobaraujo88/orcamentogovfed/main/img/printDashboard.png)
 
-Download do dashboard que utiliza direct query com o banco de dados Azure SQL (arquvio -pbix que abre no power BI): [Orçamento Do Governo Federal - Panorama - Azure](https://github.com/hugobaraujo88/orcamentogovfed/raw/main/Dashboard%20Power%20BI/OrcamentoGovernoFederalPanorama%20-%20azure.pbix).
+Download of the dashboard that uses direct query with the Azure SQL database (PBIX file for opening in Power BI): [Orçamento Do Governo Federal - Panorama - Azure](https://github.com/hugobaraujo88/orcamentogovfed/raw/main/Dashboard%20Power%20BI/OrcamentoGovernoFederalPanorama%20-%20azure.pbix).
 
-Download do dashboard sem a estrutura do Azure, com dados importados e atualizados até setembro de 2023 (arquvio -pbix que abre no power BI): [Orçamento Do Governo Federal - Panorama](https://github.com/hugobaraujo88/orcamentogovfed/raw/main/Dashboard%20Power%20BI/OrcamentoGovernoFederalPanorama.pbix).
+Download of the dashboard without the Azure infrastructure, featuring imported and updated data up to September 2023 (PBIX file for opening in Power BI): [Orçamento Do Governo Federal - Panorama](https://github.com/hugobaraujo88/orcamentogovfed/raw/main/Dashboard%20Power%20BI/OrcamentoGovernoFederalPanorama.pbix).
 
 
-## Pré-requisitos para execução desse projeto
+## Project requirements
 
 **-** Python + libs (`requests`, `pandas`, `textwrap`, `textwrap`, `pyodbc`, `sqlalchemy`, `zipfile`, `os`, `urllib.parse`) 
 
-**-** Leitor de arquivos .ipynb (análise exploratória dos dados [analise_exploratoria.ipynb](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/analise_exploratoria.ipynb))
+**-** .ipynb file reader, such as jupyter (Data Exploratory Analysis [analise_exploratoria.ipynb](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/analise_exploratoria.ipynb))
 
-**-** Conta Azure
+**-** Azure Subscription
 
 ## Templates Azure
 
-A pasta [Templates - Azure](https://github.com/hugobaraujo88/orcamentogovfed/tree/main/Templates%20-%20Azure) contém os códigos de todos os serviços e objetos do Azure utilizados (formato .json), bem como as arquiteturas detalhadas de cada pipeline do projeto. Os códigos permitem a replicação do projeto dentro de qualquer assinatura azure.
+The [Templates - Azure](https://github.com/hugobaraujo88/orcamentogovfed/tree/main/Templates%20-%20Azure) folder contains JSON-formatted codes for all Azure services and objects used, as well as detailed architectures for each project pipeline. These codes enable project replication within any Azure subscription.
 
-Para baixar o repositório, utilizar os seguintes comando com o Git Bash em uma pasta qualquer:
+To download the repository, use the following commands with Git Bash in any folder:
 
 ```
 git init
 
-git clone https://github.com/hugobaraujo88/orcamentogovfed 
+git clone https://github.com/hugobaraujo88/brfederalbudget
 ```
 
-## Custos estimados do Projeto
+## Estimated Costs
 
-A tabela a seguir apresnta uma estimativa dos custos (em US$) para orquestração, execução e armazenamento para a manutenção do projeto. O valor total é mensal (trigger acionado uma vez por mês) 
+The following table presents an estimate of costs (in US dollars) for orchestration, execution, and storage for project maintenance. The total value is monthly. (Pipelines triggered once per month). 
 
 | Resource/Service                                | Quantity | Unit           | Unit Cost (US$) | Total   |
 |----------------------------------------|----------|----------------|-----------------|---------|
