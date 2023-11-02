@@ -22,15 +22,13 @@ This video https://youtu.be/dawEcPuuV1s contains a brief description of the proj
 
 **7)** Historical data from 2014 to 2023 is extracted, processed, and sent to Azure SQL using a Python script. (kindly review this file [download_orcamento_federal.py](https://github.com/hugobaraujo88/orcamentogovfed/blob/main/download_orcamento_federal.py) and this [send_historical_to_sql.py](https://github.com/hugobaraujo88/brfederalbudget/blob/main/send_historical_to_sql.py))
 
-**8)** Finally, after running the queries located in the [SQL Scripts](https://github.com/hugobaraujo88/brfederalbudget/tree/main/SQL%20Scripts) folder, which are automatically executed each time the loading pipeline is triggered, he dashboard is created in Power BI via direct query.
+**8)** Finally, after running the queries located in the [SQL Scripts](https://github.com/hugobaraujo88/brfederalbudget/tree/main/SQLscripts) folder, which are automatically executed each time the loading pipeline is triggered, he dashboard is created in Power BI via direct query.
 
 ## Dashboard
 
 ![dashboard](https://raw.githubusercontent.com/hugobaraujo88/brfederalbudget/main/img/printDashboard.png)
 
-Download of the dashboard that uses direct query with the Azure SQL database (PBIX file for opening in Power BI): [Orçamento Do Governo Federal - Panorama - Azure](https://github.com/hugobaraujo88/brfederalbudget/raw/main/Dashboard%20Power%20BI/OrcamentoGovernoFederalPanorama%20-%20azure.pbix).
-
-Download of the dashboard without the Azure infrastructure, featuring imported and updated data up to September 2023 (PBIX file for opening in Power BI): [Orçamento Do Governo Federal - Panorama](https://github.com/hugobaraujo88/brfederalbudget/raw/main/Dashboard%20Power%20BI/OrcamentoGovernoFederalPanorama.pbix).
+Download of the dashboard featuring imported and updated data up to September 2023 (PBIX file for opening in Power BI): [Orçamento Do Governo Federal - Panorama](https://github.com/hugobaraujo88/brfederalbudget/raw/main/Dashboard%20Power%20BI/FederalGovernmentBudgetOverview.pbix).
 
 
 ## Project requirements
